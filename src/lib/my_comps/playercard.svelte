@@ -5,7 +5,9 @@
 	import { Label } from '$lib/components/ui/label';
 	import * as Select from '$lib/components/ui/select/index.js';
 
-	let { playersNumber, playerId }: { playersNumber: number; playerId: number } = $props();
+	const maxRating = 10;
+
+	let { playerId }: { playerId: number } = $props();
 
 	let playerStats = $state({
 		name: '',
@@ -56,7 +58,7 @@
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
-								{#each Array(playersNumber) as _, i (i)}
+								{#each Array(maxRating) as _, i (i)}
 									<Select.Item value={(i + 1).toString()}>{i + 1}</Select.Item>
 								{/each}
 							</Select.Group>
@@ -76,7 +78,7 @@
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
-								{#each Array(playersNumber) as _, i (i)}
+								{#each Array(maxRating) as _, i (i)}
 									<Select.Item value={(i + 1).toString()}>{i + 1}</Select.Item>
 								{/each}
 							</Select.Group>
@@ -96,7 +98,7 @@
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
-								{#each Array(playersNumber) as _, i (i)}
+								{#each Array(maxRating) as _, i (i)}
 									<Select.Item value={(i + 1).toString()}>{i + 1}</Select.Item>
 								{/each}
 							</Select.Group>

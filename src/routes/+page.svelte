@@ -3,8 +3,9 @@
 	import { type CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import Playercard from '../lib/my_comps/playercard.svelte';
+	import Bin from 'lucide-svelte/icons/trash';
 
-	const playersNumber = 10;
+	const playersNumber = 2;
 
 	let api = $state<CarouselAPI>();
 	let current = $state(0);
@@ -24,12 +25,25 @@
 	<Carousel.Root class="w-4/6 max-w-xs" setApi={(emblaApi) => (api = emblaApi)}>
 		<Carousel.Content>
 			{#each Array(playersNumber) as _, i (i)}
-				<Playercard {playersNumber} playerId={i + 1}></Playercard>
+				<Playercard playerId={i + 1}></Playercard>
 			{/each}
 		</Carousel.Content>
 		<Carousel.Previous />
 		<Carousel.Next />
 	</Carousel.Root>
 	<div class="py-2 text-center text-xl">Player {current} di {count}</div>
-	<Button class="mt-10 text-lg" size="lg">Genera squadra</Button>
+	<div class="mt-10 flex items-center justify-center gap-3">
+		<Button class=" text-lg" size="lg">Genera squadra</Button>
+		<Button
+			onclick={() => {
+				// TODO: direi che sia da modificare
+				localStorage.clear();
+				location.reload();
+			}}
+			size="icon"
+			variant="destructive"
+		>
+			<Bin />
+		</Button>
+	</div>
 </div>
