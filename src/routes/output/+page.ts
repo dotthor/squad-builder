@@ -1,5 +1,6 @@
 import { players } from '$lib/states.svelte';
 import type { PageLoad } from './$types';
+export const ssr = false;
 
 export const load = (async () => {
 
@@ -7,11 +8,11 @@ export const load = (async () => {
     const teams = generateTeams(players.value);
 
     if (teams) {
-        console.log("Squadra 1:", teams.team1);
-        console.log("Squadra 2:", teams.team2);
+        /* console.log("Squadra 1:", teams.team1);
+        console.log("Squadra 2:", teams.team2); */
         return { teams };
     } else {
-        console.log("Non è stato possibile generare squadre equilibrate.");
+        //console.log("Non è stato possibile generare squadre equilibrate.");
         return { error: "Non è stato possibile generare squadre equilibrate." };
     }
 
@@ -75,7 +76,8 @@ function generateTeams(players: Player[]): { team1: Player[]; team2: Player[] } 
     const fieldPlayers = players.filter((player) => !player.keeper);
 
     if (keepers.length !== 2) {
-        throw new Error("Ci devono essere esattamente 2 portieri.");
+        //throw new Error("Ci devono essere esattamente 2 portieri.");
+        return null;
     }
 
     const combinations = combine(fieldPlayers, 5); // 5 giocatori di campo per squadra
