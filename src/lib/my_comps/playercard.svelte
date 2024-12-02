@@ -4,31 +4,49 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { players } from '$lib/states.svelte';
+	import { useDebounce } from 'runed';
 
 	const maxRating = 10;
 
 	let { playerId }: { playerId: number } = $props();
 
-	let playerStats = $state({
-		name: '',
-		attValue: '-',
-		defValue: '-',
-		tecValue: '-'
-	});
+	$inspect(players.value);
 
-	try {
+	let player = $state(
+		players.value.find((p) => p.id == `player_${playerId}`) || {
+			id: `player_${playerId}`,
+			name: '',
+			attValue: '-',
+			defValue: '-',
+			tecValue: '-'
+		}
+	);
+
+	/* try {
 		const storedPlayerStats = localStorage.getItem(`player_${playerId}`);
 		if (storedPlayerStats) {
 			playerStats = JSON.parse(storedPlayerStats);
 		}
-	} catch (error) {}
+	} catch (error) {} */
 
-	function updatePlayer() {
+	/* function updatePlayer() {
 		if (playerStats.name === '') {
 			playerStats.name = 'Player ' + playerId;
 		}
 		localStorage.setItem(`player_${playerId}`, JSON.stringify(playerStats));
-	}
+	} */
+
+	const updatePlayer = useDebounce(
+		() => {
+			if (player.name === '') {
+				player.name = 'Player ' + playerId;
+			}
+			players.updatePlayer(player);
+			//localStorage.setItem(`player_${playerId}`, JSON.stringify(playerStats));
+		},
+		() => 500
+	);
 </script>
 
 <Carousel.Item>
@@ -42,7 +60,7 @@
 						type="text"
 						placeholder="Lionel"
 						class="max-w-xs text-base"
-						bind:value={playerStats.name}
+						bind:value={player.name}
 					/>
 				</div>
 				<div class="flex w-full max-w-sm flex-col gap-1.5">
@@ -51,10 +69,10 @@
 						onValueChange={updatePlayer}
 						type="single"
 						name="favoriteFruit"
-						bind:value={playerStats.attValue}
+						bind:value={player.attValue}
 					>
 						<Select.Trigger>
-							{playerStats.attValue}
+							{player.attValue}
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
@@ -71,10 +89,10 @@
 						onValueChange={updatePlayer}
 						type="single"
 						name="favoriteFruit"
-						bind:value={playerStats.defValue}
+						bind:value={player.defValue}
 					>
 						<Select.Trigger>
-							{playerStats.defValue}
+							{player.defValue}
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
@@ -91,10 +109,10 @@
 						onValueChange={updatePlayer}
 						type="single"
 						name="favoriteFruit"
-						bind:value={playerStats.tecValue}
+						bind:value={player.tecValue}
 					>
 						<Select.Trigger>
-							{playerStats.tecValue}
+							{player.tecValue}
 						</Select.Trigger>
 						<Select.Content>
 							<Select.Group>
