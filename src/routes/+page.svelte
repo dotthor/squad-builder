@@ -6,7 +6,7 @@
 	import Playercard from '../lib/my_comps/playercard.svelte';
 	import Bin from 'lucide-svelte/icons/trash';
 
-	const playersNumber = 2;
+	const playersNumber = 12;
 
 	let api = $state<CarouselAPI>();
 	let current = $state(0);

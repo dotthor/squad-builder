@@ -3,7 +3,8 @@ type Player = {
     name: string,
     attValue: string,
     defValue: string,
-    tecValue: string
+    tecValue: string,
+    keeper: boolean
 }
 
 export function createPlayersState() {

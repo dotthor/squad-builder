@@ -4,6 +4,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { Switch } from '$lib/components/ui/switch';
 	import { players } from '$lib/states.svelte';
 	import { useDebounce } from 'runed';
 
@@ -11,15 +12,14 @@
 
 	let { playerId }: { playerId: number } = $props();
 
-	$inspect(players.value);
-
 	let player = $state(
 		players.value.find((p) => p.id == `player_${playerId}`) || {
 			id: `player_${playerId}`,
 			name: '',
 			attValue: '-',
 			defValue: '-',
-			tecValue: '-'
+			tecValue: '-',
+			keeper: false
 		}
 	);
 
@@ -123,6 +123,14 @@
 						</Select.Content>
 					</Select.Root>
 				</div>
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="keeper">Purti</Label>
+
+					<Switch onCheckedChange={updatePlayer} bind:checked={player.keeper} id="keeper" />
+				</div>
+				<!-- <div class="flex w-full items-center space-x-2">
+					<Label for="keeper">Purti</Label>
+				</div> -->
 			</Card.Content>
 		</Card.Root>
 	</div>
