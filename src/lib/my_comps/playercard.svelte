@@ -5,6 +5,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Switch } from '$lib/components/ui/switch';
+	import { getRandomFootballer } from '$lib/my_utils';
 	import { players } from '$lib/states.svelte';
 	import { useDebounce } from 'runed';
 
@@ -12,16 +13,7 @@
 
 	let { playerId }: { playerId: number } = $props();
 
-	let player = $state(
-		players.value.find((p) => p.id == `player_${playerId}`) || {
-			id: `player_${playerId}`,
-			name: '',
-			attValue: '-',
-			defValue: '-',
-			tecValue: '-',
-			keeper: false
-		}
-	);
+	let player = $state(players.value[playerId]);
 
 	/* try {
 		const storedPlayerStats = localStorage.getItem(`player_${playerId}`);
@@ -38,9 +30,10 @@
 	} */
 
 	const updatePlayer = useDebounce(
-		() => {
-			if (player.name === '') {
-				player.name = 'Player ' + playerId;
+		(e) => {
+			console.log(e);
+			if (player.name === '' && e.key !== 'Backspace') {
+				player.name = getRandomFootballer();
 			}
 			players.updatePlayer(player);
 			//localStorage.setItem(`player_${playerId}`, JSON.stringify(playerStats));

@@ -1,5 +1,5 @@
 type Player = {
-    id: string,
+    id: number,
     name: string,
     attValue: string,
     defValue: string,
@@ -14,8 +14,32 @@ export function createPlayersState() {
         const storedPlayers = localStorage.getItem(`players`);
         if (storedPlayers) {
             playersState = JSON.parse(storedPlayers);
+        } else {
+            for (let i = 0; i < 12; i++) {
+                playersState.push({
+                    id: i,
+                    name: "",
+                    attValue: "-",
+                    defValue: "-",
+                    tecValue: "-",
+                    keeper: false
+
+                });
+            }
         }
-    } catch (error) { }
+    } catch (error) {
+        for (let i = 0; i < 12; i++) {
+            playersState.push({
+                id: i,
+                name: "",
+                attValue: "-",
+                defValue: "-",
+                tecValue: "-",
+                keeper: false
+
+            });
+        }
+    }
 
 
     function updatePlayer(player: Player) {
@@ -30,7 +54,8 @@ export function createPlayersState() {
 
     function reset() {
         playersState = [];
-        localStorage.setItem(`players`, JSON.stringify(playersState));
+        //localStorage.setItem(`players`, JSON.stringify(playersState));
+        localStorage.removeItem(`players`);
         location.reload();
     }
 
