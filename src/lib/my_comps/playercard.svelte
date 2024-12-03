@@ -31,7 +31,6 @@
 
 	const updatePlayer = useDebounce(
 		(e) => {
-			console.log(e);
 			if (player.name === '' && e.key !== 'Backspace') {
 				player.name = getRandomFootballer();
 			}
