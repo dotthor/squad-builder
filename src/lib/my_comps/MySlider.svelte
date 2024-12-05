@@ -31,7 +31,7 @@
 
 <div class="h-40 md:max-w-[280px]">
 	<Slider.Root
-		min={1}
+		min={0}
 		max={10}
 		step={1}
 		orientation="vertical"

@@ -41,6 +41,7 @@
 				<div class="flex flex-col items-center gap-1">
 					<MySlider bind:value={stat.value}></MySlider>
 					<Icon />
+					<span>{stat.value}</span>
 				</div>
 			{/each}
 		</div>
