@@ -6,8 +6,8 @@
 	//import 'chartjs-adapter-date-fns';
 
 	interface Props extends HTMLCanvasAttributes {
-		data: ChartData<'line', number[], string>;
-		options: ChartOptions<'line'>;
+		data: ChartData<'radar', number[], string>;
+		options: ChartOptions<'radar'>;
 	}
 
 	const { data, options, ...rest }: Props = $props();
@@ -19,7 +19,7 @@
 
 	$effect(() => {
 		chart = new Chart(canvasElem, {
-			type: 'line',
+			type: 'radar',
 			data,
 			options
 		});
