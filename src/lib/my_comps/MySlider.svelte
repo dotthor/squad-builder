@@ -31,6 +31,10 @@
 
 <div class="h-40 md:max-w-[280px]">
 	<Slider.Root
+		onValueChange={(v) => {
+			if (v[0] < 1) v[0] = 1;
+			value = v;
+		}}
 		min={0}
 		max={10}
 		step={1}

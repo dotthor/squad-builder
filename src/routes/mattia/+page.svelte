@@ -8,7 +8,7 @@
 
 	let stats = $state([
 		{
-			value: [8],
+			value: [5],
 			label: 'Velocità'
 		},
 		{
@@ -16,11 +16,11 @@
 			label: 'Fisico'
 		},
 		{
-			value: [3],
+			value: [5],
 			label: 'Difesa'
 		},
 		{
-			value: [7],
+			value: [5],
 			label: 'Visione'
 		}
 	]);
