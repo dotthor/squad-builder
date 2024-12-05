@@ -5,10 +5,10 @@
 
 	//const labels = Utils.months({ count: 7 });
 	const data = {
-		labels: ['Attacco', 'Difesa', 'Tecnica'],
+		labels: ['🛡️', '', '✨'],
 		datasets: [
 			{
-				data: [10, 4, 10],
+				data: [10, 2, 10],
 				borderWidth: 1
 			}
 		]
@@ -24,20 +24,24 @@
 				min: 0,
 				max: 10,
 				ticks: {
-					stepSize: 1
+					display: false,
+					stepSize: 10
 				}
 			}
 		},
 		plugins: {
 			legend: {
 				display: false
+			},
+			tooltip: {
+				enabled: false
 			}
 		}
 	};
 </script>
 
 <Center>
-	<div class="size-72">
+	<div class="relative size-32 bg-red-100">
 		<Statschart {data} {options}></Statschart>
 	</div>
 </Center>

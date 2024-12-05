@@ -28,7 +28,7 @@
 <div class="flex h-dvh flex-col items-center justify-center">
 	<Carousel.Root class="w-4/6 max-w-xs" setApi={(emblaApi) => (api = emblaApi)} {opts}>
 		<Carousel.Content>
-			{#each Array(playersNumber) as _, i (i)}
+			{#each { length: playersNumber } as _, i (i)}
 				<Playercard playerId={i}></Playercard>
 			{/each}
 		</Carousel.Content>
