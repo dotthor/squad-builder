@@ -6,6 +6,16 @@ type Player = {
     tecValue: string,
     keeper: boolean
 }
+type PlayerV2 = {
+    id: number,
+    name: string,
+    stats: {
+        att: number,
+        def: number,
+        tec: number
+    },
+    isKeeper: boolean
+}
 
 export function createPlayersState() {
     let playersState: Player[] = $state([]);
@@ -67,5 +77,72 @@ export function createPlayersState() {
         reset
     };
 }
+export function createPlayersStateV2() {
+    let playersState: PlayerV2[] = $state([]);
+
+    try {
+        const storedPlayers = localStorage.getItem(`playersV2`);
+        if (storedPlayers) {
+            playersState = JSON.parse(storedPlayers);
+        } else {
+            for (let i = 0; i < 6; i++) {
+                playersState.push({
+                    id: i,
+                    name: "",
+                    stats: {
+                        att: 5,
+                        def: 5,
+                        tec: 5
+                    },
+                    isKeeper: false
+
+                });
+            }
+            localStorage.setItem(`playersV2`, JSON.stringify(playersState));
+        }
+    } catch (error) {
+        for (let i = 0; i < 6; i++) {
+            playersState.push({
+                id: i,
+                name: "",
+                stats: {
+                    att: 5,
+                    def: 5,
+                    tec: 5
+                },
+                isKeeper: false
+
+            });
+        }
+        //localStorage.setItem(`playersV2`, JSON.stringify(playersState));
+    }
+
+
+    function updatePlayer(player: PlayerV2) {
+        const index = playersState.findIndex(p => p.id === player.id);
+        if (index !== -1) {
+            playersState[index] = player;
+        } else {
+            playersState.push(player);
+        }
+        localStorage.setItem(`playersV2`, JSON.stringify(playersState));
+    }
+
+    function reset() {
+        playersState = [];
+        //localStorage.setItem(`players`, JSON.stringify(playersState));
+        localStorage.removeItem(`playersV2`);
+        location.reload();
+    }
+
+    return {
+        get value() {
+            return playersState;
+        },
+        updatePlayer,
+        reset
+    };
+}
 
 export const players = createPlayersState();
+export const playersV2 = createPlayersStateV2();

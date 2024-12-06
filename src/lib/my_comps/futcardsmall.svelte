@@ -1,33 +1,23 @@
 <script lang="ts">
 	import { mapToRange } from '$lib/my_utils';
 
-	let { stats = $bindable(), nome = $bindable() } = $props();
+	let { stats = $bindable(), nome } = $props();
 
 	let rarity = $state('gold');
 
-	let overall = $state(
-		mapToRange(
-			stats.find((s: { label: string }) => s.label == 'Attacco').value[0],
-			stats.find((s: { label: string }) => s.label == 'Difesa').value[0],
-			stats.find((s: { label: string }) => s.label == 'Tecnica').value[0]
-		)
-	);
+	let overall = $state(mapToRange(stats.att, stats.def, stats.tec));
 
 	$effect(() => {
-		overall = mapToRange(
-			stats.find((s: { label: string }) => s.label == 'Attacco').value[0],
-			stats.find((s: { label: string }) => s.label == 'Difesa').value[0],
-			stats.find((s: { label: string }) => s.label == 'Tecnica').value[0]
-		);
+		overall = mapToRange(stats.att, stats.def, stats.tec);
 		if (overall < 65) rarity = 'bronze';
 		else if (overall < 75) rarity = 'silver';
 		else rarity = 'gold';
-		//console.log(rarity, overall);
+		console.log(rarity, overall);
 	});
 </script>
 
 <div
-	class="relative aspect-[9/12] w-24 bg-contain bg-center bg-no-repeat"
+	class="draggable-item relative aspect-[9/12] w-24 bg-contain bg-center bg-no-repeat"
 	style:background-image={"url('/imgs/bg_card_" + rarity + ".png')"}
 >
 	<div class="absolute left-1 top-4 flex flex-col items-center">
