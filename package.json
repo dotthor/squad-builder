@@ -41,6 +41,6 @@
 	},
 	"dependencies": {
 		"chart.js": "^4.4.7",
-		"runed": "^0.16.3"
+		"runed": "^0.17.0"
 	}
 }

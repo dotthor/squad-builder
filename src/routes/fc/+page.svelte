@@ -9,8 +9,12 @@
 	import Shield from 'lucide-svelte/icons/shield';
 	import Eye from 'lucide-svelte/icons/eye';
 	import Input from '$lib/components/ui/input/input.svelte';
+	import Futcardsmall from '$lib/my_comps/futcardsmall.svelte';
 
 	let nome = $state('Gervino');
+	/* silver 74, bronze 64 */
+
+	let open = $state(false);
 
 	let stats = $state([
 		{
@@ -31,9 +35,9 @@
 
 <div class="relative h-dvh w-full bg-[url('/imgs/pitch2.png')] bg-center bg-no-repeat">
 	<Center>
-		<Drawer.Root>
+		<Drawer.Root bind:open>
 			<Drawer.Trigger>
-				<Futcardbig bind:stats bind:nome />
+				<Futcardsmall bind:stats bind:nome />
 			</Drawer.Trigger>
 			<Drawer.Content>
 				<div class="flex w-full flex-col items-center gap-4 py-4">
@@ -50,4 +54,22 @@
 			</Drawer.Content>
 		</Drawer.Root>
 	</Center>
+	<button
+		class="absolute right-4 top-4"
+		onclick={() => {
+			nome = 'Benny';
+			open = !open;
+		}}
+	>
+		<Anchor size="32" />
+	</button>
+	<button
+		class="absolute left-4 top-4"
+		onclick={() => {
+			nome = 'Mattia';
+			open = !open;
+		}}
+	>
+		<Eye size="32" />
+	</button>
 </div>
