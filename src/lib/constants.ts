@@ -1,3 +1,5 @@
+export const squadDimension = 5;
+
 export const bestFootballers = [
     "Luis Suarez Miramontes",
     "Oliver Kahn",

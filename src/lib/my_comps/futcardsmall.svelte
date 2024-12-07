@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { mapToRange } from '$lib/my_utils';
 
-	let { stats = $bindable(), nome } = $props();
+	let { stats, nome } = $props();
 
 	let rarity = $state('gold');
 

@@ -13,6 +13,7 @@
 	import { playersV2 } from '$lib/states.svelte';
 	import { onMount } from 'svelte';
 	import { Swappable } from '@shopify/draggable';
+	import Formation from '$lib/my_comps/formation.svelte';
 
 	let nome = $state('Gervino');
 	/* silver 74, bronze 64 */
@@ -43,11 +44,22 @@
 
 <div class="relative h-dvh w-full bg-[url('/imgs/pitch2.png')] bg-center bg-no-repeat">
 	<Center>
-		<div id="swappable" class="flex flex-wrap items-center justify-center gap-6">
+		<!-- <Button
+			onclick={() => {
+				// TODO: si può fare meglio
+				//localStorage.clear();
+				//location.reload();
+				playersV2.reset();
+			}}
+			size="icon"
+			variant="destructive"
+		/> -->
+		<!-- <div id="swappable" class="flex h-full flex-wrap items-center justify-center gap-6 border">
 			{#each playersV2.value as player (player.id)}
-				<Futcardsmall bind:stats={player.stats} nome={player.name} />
+				<Futcardsmall stats={player.stats} nome={player.name} />
 			{/each}
-		</div>
+		</div> -->
+		<Formation></Formation>
 	</Center>
 	<button
 		class="absolute right-4 top-4"

@@ -1,3 +1,5 @@
+import { squadDimension } from "./constants"
+
 type Player = {
     id: number,
     name: string,
@@ -85,7 +87,7 @@ export function createPlayersStateV2() {
         if (storedPlayers) {
             playersState = JSON.parse(storedPlayers);
         } else {
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < squadDimension; i++) {
                 playersState.push({
                     id: i,
                     name: "",
@@ -101,7 +103,7 @@ export function createPlayersStateV2() {
             localStorage.setItem(`playersV2`, JSON.stringify(playersState));
         }
     } catch (error) {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < squadDimension; i++) {
             playersState.push({
                 id: i,
                 name: "",
