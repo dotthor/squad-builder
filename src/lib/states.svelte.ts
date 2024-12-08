@@ -212,8 +212,8 @@ export function createTeams() {
 
             });
         }
-        localStorage.setItem(`team_a`, JSON.stringify(teams.team_a));
-        localStorage.setItem(`team_b`, JSON.stringify(teams.team_b));
+        //localStorage.setItem(`team_a`, JSON.stringify(teams.team_a));
+        //localStorage.setItem(`team_b`, JSON.stringify(teams.team_b));
     }
 
 
