@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { mapToRange } from '$lib/my_utils';
 
-	let { stats = $bindable(), nome = $bindable() } = $props();
+	let { rarity, overall, att, def, tec, name } = $props();
 
-	let rarity = $state('gold');
+	//let rarity = $state('gold');
 
-	let overall = $state(
+	/* let overall = $state(
 		mapToRange(
 			stats.find((s: { label: string }) => s.label == 'Attacco').value[0],
 			stats.find((s: { label: string }) => s.label == 'Difesa').value[0],
@@ -23,7 +23,7 @@
 		else if (overall < 75) rarity = 'silver';
 		else rarity = 'gold';
 		//console.log(rarity, overall);
-	});
+	}); */
 </script>
 
 <div
@@ -41,22 +41,22 @@
 	></div>
 	<span
 		class="absolute bottom-[70px] flex w-full flex-col items-center text-lg font-bold leading-tight"
-		>{nome}</span
+		>{name}</span
 	>
 	<div
 		class="absolute bottom-[30px] flex w-full items-center justify-evenly font-bold leading-tight"
 	>
 		<div class="flex flex-col items-center">
 			<span>ATT</span>
-			<span>{stats.find((s: { label: string }) => s.label == 'Attacco').value}</span>
+			<span>{att}</span>
 		</div>
 		<div class="flex flex-col items-center">
 			<span>DIF</span>
-			<span>{stats.find((s: { label: string }) => s.label == 'Difesa').value}</span>
+			<span>{def}</span>
 		</div>
 		<div class="flex flex-col items-center">
 			<span>TEC</span>
-			<span>{stats.find((s: { label: string }) => s.label == 'Tecnica').value}</span>
+			<span>{tec}</span>
 		</div>
 	</div>
 </div>

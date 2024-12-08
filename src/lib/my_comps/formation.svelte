@@ -7,9 +7,9 @@
 	//let { formation } = $props();
 
 	onMount(() => {
-		/* const swappable = new Swappable(document.querySelectorAll('#swappable'), {
+		const swappable = new Swappable(document.querySelectorAll('#swappable'), {
 			draggable: '.draggable-item'
-		}); */
+		});
 	});
 
 	const positions = [

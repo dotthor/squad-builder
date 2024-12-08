@@ -12,9 +12,9 @@ type PlayerV2 = {
     id: number,
     name: string,
     stats: {
-        att: number,
-        def: number,
-        tec: number
+        att: number[],
+        def: number[],
+        tec: number[]
     },
     isKeeper: boolean
 }
@@ -92,9 +92,9 @@ export function createPlayersStateV2() {
                     id: i,
                     name: "",
                     stats: {
-                        att: 5,
-                        def: 5,
-                        tec: 5
+                        att: [5],
+                        def: [5],
+                        tec: [5]
                     },
                     isKeeper: false
 
@@ -108,9 +108,9 @@ export function createPlayersStateV2() {
                 id: i,
                 name: "",
                 stats: {
-                    att: 5,
-                    def: 5,
-                    tec: 5
+                    att: [5],
+                    def: [5],
+                    tec: [5]
                 },
                 isKeeper: false
 
