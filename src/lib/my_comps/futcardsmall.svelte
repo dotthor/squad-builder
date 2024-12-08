@@ -1,15 +1,17 @@
 <script lang="ts">
-	import { mapToRange } from '$lib/my_utils';
+	import { getRandomFootballer, mapToRange } from '$lib/my_utils';
 	import * as Drawer from '$lib/components/ui/drawer';
 	import { Input } from '$lib/components/ui/input';
 	import Futcardbig from './futcardbig.svelte';
 	import MySlider from './MySlider.svelte';
+	import { useDebounce } from 'runed';
+	import { playersV2, teams } from '$lib/states.svelte';
 
-	let { stats, nome } = $props();
+	let { stats, nome, id, team } = $props();
 
 	let open = $state(false);
 
-	let rarity = $state('gold');
+	let rarity = $state('silver');
 
 	let overall = $state(mapToRange(stats.att[0], stats.def[0], stats.tec[0]));
 
@@ -20,11 +22,23 @@
 		else rarity = 'gold';
 		//console.log(rarity, overall);
 	});
+
+	const updatePlayer = useDebounce(
+		(e: KeyboardEvent) => {
+			if (nome === '' && (!e || e.key !== 'Backspace')) {
+				nome = getRandomFootballer();
+			}
+			teams.updatePlayer({ stats, name: nome, isKeeper: false, id }, team);
+			//localStorage.setItem(`player_${playerId}`, JSON.stringify(playerStats));
+		},
+		() => 500
+	);
 </script>
 
-<Drawer.Root bind:open>
+<Drawer.Root>
 	<Drawer.Trigger>
 		<div
+			{id}
 			class="draggable-item relative aspect-[9/12] w-24 bg-contain bg-center bg-no-repeat"
 			style:background-image={"url('/imgs/bg_card_" + rarity + ".png')"}
 		>
@@ -44,7 +58,7 @@
 		</div>
 	</Drawer.Trigger>
 	<Drawer.Content>
-		<div class="flex w-full flex-col items-center gap-4 py-4">
+		<div class="flex w-full flex-col items-center gap-4 py-4 pb-10">
 			<Futcardbig att={stats.att} def={stats.def} tec={stats.tec} name={nome} {overall} {rarity} />
 			<div data-vaul-no-drag class="flex gap-4">
 				<!-- {#each stats as stat, i (i)}
@@ -53,16 +67,16 @@
 					</div>
 				{/each} -->
 				<div class="flex flex-col items-center gap-1">
-					<MySlider bind:value={stats.att}></MySlider>
+					<MySlider {updatePlayer} bind:value={stats.att}></MySlider>
 				</div>
 				<div class="flex flex-col items-center gap-1">
-					<MySlider bind:value={stats.def}></MySlider>
+					<MySlider {updatePlayer} bind:value={stats.def}></MySlider>
 				</div>
 				<div class="flex flex-col items-center gap-1">
-					<MySlider bind:value={stats.tec}></MySlider>
+					<MySlider {updatePlayer} bind:value={stats.tec}></MySlider>
 				</div>
 			</div>
-			<Input placeholder="Nome" bind:value={nome} class="w-4/6 text-base" />
+			<Input onkeyup={updatePlayer} placeholder="Nome" bind:value={nome} class="w-4/6 text-base" />
 		</div>
 	</Drawer.Content>
 </Drawer.Root>

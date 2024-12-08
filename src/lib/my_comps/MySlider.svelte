@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { Slider, type WithoutChildren } from 'bits-ui';
 
-	type Props = WithoutChildren<Slider.RootProps>;
+	//type Props = WithoutChildren<Slider.RootProps>;
 
-	let { value = $bindable(), ref = $bindable(null), ...restProps }: Props = $props();
+	let {
+		value = $bindable(),
+		ref = $bindable(null),
+		updatePlayer,
+		...restProps
+	} /* : Props */ = $props();
 </script>
 
 <!-- <Slider.Root
@@ -34,6 +39,7 @@
 		onValueChange={(v) => {
 			if (v[0] < 1) v[0] = 1;
 			value = v;
+			updatePlayer(/* { key: '' } */);
 		}}
 		min={0}
 		max={10}
