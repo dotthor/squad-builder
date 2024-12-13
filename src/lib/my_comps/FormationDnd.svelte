@@ -6,7 +6,7 @@
 	import Plus from 'lucide-svelte/icons/plus';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import PlayerDialog from './playerDialog.svelte';
-	import { coords_5_a_side, type Coordinate } from '$lib/constants';
+	import { coords_5_a_side, type Coordinate, type Player } from '$lib/constants';
 	// coord 1-5 / 1-15
 	const slots = [
 		{
@@ -45,22 +45,38 @@
 			}
 		}
 	];
-	let players = $state([
+	let players = $state<Player[]>([
 		{
 			name: 'Benny',
-			position: 1
+			position: 1,
+			stats: {
+				att: 5,
+				def: 5,
+				tec: 5
+			}
 		},
 		{
 			name: 'Mattia',
-			position: 2
+			position: 2,
+			stats: {
+				att: 5,
+				def: 5,
+				tec: 5
+			}
 		},
 		{
 			name: 'Giacomo',
-			position: 5
+			position: 5,
+			stats: {
+				att: 5,
+				def: 5,
+				tec: 5
+			}
 		}
 	]);
 
 	let open = $state(false);
+	let editingPlayer = $state<Player | undefined>(undefined);
 	$effect(() => {
 		return monitorForElements({
 			onDrop({ source, location }) {
@@ -99,10 +115,20 @@
 		<PlayerslotDnd {pSlot}>
 			{@const player = players.find((p) => p.position === pSlot.position)}
 			{#if player}
-				<PlayercardDnd {player} />
+				<button
+					class="contents"
+					onclick={() => {
+						editingPlayer = player;
+						open = true;
+						console.log('edit player');
+					}}
+				>
+					<PlayercardDnd {player} />
+				</button>
 			{:else}
 				<button
 					onclick={() => {
+						editingPlayer = undefined;
 						open = true;
 						console.log('new player');
 					}}
@@ -113,6 +139,8 @@
 		</PlayerslotDnd>
 	{/each}
 </Pitch>
+<PlayerDialog bind:open player={editingPlayer} />
+
 <!-- <button
 	onclick={() => {
 		console.log($state.snapshot(players));

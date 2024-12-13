@@ -26,12 +26,9 @@
 	});
 </script>
 
-<button
-	onclick={() => {
-		//open = true;
-		console.log('edit player');
-	}}
+<div
 	bind:this={element}
 	class={'size-full rounded-md bg-yellow-500 ' + (dragging ? ' opacity-30' : '')}
-	>{player.name}</button
 >
+	{player.name}
+</div>

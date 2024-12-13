@@ -133,6 +133,11 @@ export type Coordinate = {
 export type Player = {
     name: string;
     position: number;
+    stats: {
+        att: number;
+        def: number;
+        tec: number;
+    };
 };
 
 export const coords_5_a_side = {
