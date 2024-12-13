@@ -1,70 +1,120 @@
 <script lang="ts">
 	import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+	import PlayerslotDnd from './PlayerslotDnd.svelte';
+	import PlayercardDnd from './PlayercardDnd.svelte';
+	import Pitch from './pitch.svelte';
+	import Plus from 'lucide-svelte/icons/plus';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import PlayerDialog from './playerDialog.svelte';
+	import { coords_5_a_side, type Coordinate } from '$lib/constants';
+	// coord 1-5 / 1-15
+	const slots = [
+		{
+			position: 1,
+			location: {
+				x: coords_5_a_side['diamond'][1].x,
+				y: coords_5_a_side['diamond'][1].y
+			}
+		},
+		{
+			position: 2,
+			location: {
+				x: coords_5_a_side['diamond'][2].x,
+				y: coords_5_a_side['diamond'][2].y
+			}
+		},
+		{
+			position: 3,
+			location: {
+				x: coords_5_a_side['diamond'][3].x,
+				y: coords_5_a_side['diamond'][3].y
+			}
+		},
+		{
+			position: 4,
+			location: {
+				x: coords_5_a_side['diamond'][4].x,
+				y: coords_5_a_side['diamond'][4].y
+			}
+		},
+		{
+			position: 5,
+			location: {
+				x: coords_5_a_side['diamond'][5].x,
+				y: coords_5_a_side['diamond'][5].y
+			}
+		}
+	];
+	let players = $state([
+		{
+			name: 'Benny',
+			position: 1
+		},
+		{
+			name: 'Mattia',
+			position: 2
+		},
+		{
+			name: 'Giacomo',
+			position: 5
+		}
+	]);
 
+	let open = $state(false);
 	$effect(() => {
 		return monitorForElements({
-			onDrop({ source, location }) {}
+			onDrop({ source, location }) {
+				const destination = location.current.dropTargets[0];
+				if (!destination) {
+					// if dropped outside of any drop targets
+					return;
+				}
+				const destinationLocation = destination.data.pSlot.position;
+				const sourceLocation = source.data.player.position;
+
+				if (sourceLocation === destinationLocation) {
+					return;
+				}
+				const player = players.find((p) => p.position === sourceLocation);
+				const swapPlayer = players.find((p) => p.position === destinationLocation);
+				const restOfPlayers = players.filter((p) => p !== player && p !== swapPlayer);
+
+				if (swapPlayer) {
+					console.log($state.snapshot(swapPlayer), destinationLocation);
+					players = [
+						{ ...player, position: destinationLocation },
+						{ ...swapPlayer, position: sourceLocation },
+						...restOfPlayers
+					];
+				} else {
+					players = [{ ...player, position: destinationLocation }, ...restOfPlayers];
+				}
+			}
 		});
 	});
 </script>
 
-<div
-	class="grid aspect-[68/105] h-auto w-[95%] grid-cols-5 grid-rows-[repeat(15,_minmax(0,_1fr))] bg-green-300 p-4 sm:h-[95%] sm:w-auto"
->
-	<div class="col-span-full col-start-1 row-start-1 flex size-full">
-		<span class="h-2 w-full bg-white sm:h-4"></span>
-	</div>
-	<div class="col-span-full col-start-1 row-start-[15] flex size-full items-end">
-		<span class="h-2 w-full bg-white sm:h-4"></span>
-	</div>
-	<div class="col-start-1 row-span-full row-start-1 flex size-full items-end">
-		<span class="h-full w-2 bg-white sm:w-4"></span>
-	</div>
-	<div class="col-start-5 row-span-full row-start-1 flex size-full justify-end">
-		<span class="h-full w-2 bg-white sm:w-4"></span>
-	</div>
-	<div class="col-start-2 row-span-2 row-start-1 flex size-full justify-start">
-		<span class="h-full w-2 bg-white sm:w-4"></span>
-	</div>
-	<div class="col-start-4 row-span-2 row-start-1 flex size-full justify-end">
-		<span class="h-full w-2 bg-white sm:w-4"></span>
-	</div>
-	<div class="col-span-3 col-start-2 row-start-3 flex size-full">
-		<span class="h-2 w-full bg-white sm:h-4"></span>
-	</div>
-	<div class="col-span-full col-start-1 row-start-8 flex size-full items-center">
-		<span class="h-2 w-full bg-white sm:h-4"></span>
-	</div>
-	<div class="col-start-3 row-span-3 row-start-7 flex size-full items-center justify-center px-1">
-		<span class="aspect-square w-full rounded-full border-8 border-white sm:border-[16px]"></span>
-	</div>
-	<div class="col-start-2 row-span-2 row-start-[14] flex size-full justify-start">
-		<span class="h-full w-2 bg-white sm:w-4"></span>
-	</div>
-	<div class="col-start-4 row-span-2 row-start-[14] flex size-full justify-end">
-		<span class="h-full w-2 bg-white sm:w-4"></span>
-	</div>
-	<div class="col-span-3 col-start-2 row-start-[13] flex size-full items-end">
-		<span class="h-2 w-full bg-white sm:h-4"></span>
-	</div>
-	<div class="col-start-3 row-span-2 row-start-11 flex size-full items-center justify-center">
-		<span class="h-[90%] w-[85%] rounded-full bg-slate-600"></span>
-	</div>
-	<!--  -->
-	<!--  -->
-	<!--  -->
-	<div class="col-start-3 row-start-1 flex size-full items-end justify-center">
-		<svg class="size-6" viewBox="0 0 40 40" preserveAspectRatio="none" width="100%" height="100%"
-			><rect
-				fill="#357edd"
-				x="5"
-				y="5"
-				transform="rotate(45, 20, 20)"
-				width="30"
-				height="30"
-				rx="4"
-				ry="4"
-			></rect></svg
-		>
-	</div>
-</div>
+<Pitch>
+	{#each slots as pSlot}
+		<PlayerslotDnd {pSlot}>
+			{@const player = players.find((p) => p.position === pSlot.position)}
+			{#if player}
+				<PlayercardDnd {player} />
+			{:else}
+				<button
+					onclick={() => {
+						open = true;
+						console.log('new player');
+					}}
+				>
+					<Plus color="white" size="36" />
+				</button>
+			{/if}
+		</PlayerslotDnd>
+	{/each}
+</Pitch>
+<!-- <button
+	onclick={() => {
+		console.log($state.snapshot(players));
+	}}>DEBUG</button
+> -->
