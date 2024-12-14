@@ -34,7 +34,7 @@
 
 <div
 	bind:this={element}
-	class="relative row-span-2 flex size-full items-center justify-center"
+	class="relative col-span-2 flex size-full items-center justify-center"
 	style={`grid-column-start: ${pSlot.location.x}; grid-row-start: ${pSlot.location.y};`}
 >
 	<span class="absolute left-0 top-0">{pSlot.position}</span>

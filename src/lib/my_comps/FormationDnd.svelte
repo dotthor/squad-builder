@@ -110,7 +110,7 @@
 	});
 </script>
 
-<Pitch>
+<Pitch orientation={'horizontal'}>
 	{#each slots as pSlot}
 		<PlayerslotDnd {pSlot}>
 			{@const player = players.find((p) => p.position === pSlot.position)}

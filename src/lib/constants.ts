@@ -140,23 +140,48 @@ export type Player = {
     };
 };
 
-export const coords_5_a_side = {
+/* export const coords_5_a_side = {
     diamond: {
         1: {
             x: 3,
-            y: 13
+            y: 14
         },
         2: {
             x: 3,
-            y: 10
+            y: 12
         },
         3: {
             x: 2,
-            y: 6
+            y: 10
         },
         4: {
             x: 4,
             y: 6
+        },
+        5: {
+            x: 3,
+            y: 3
+        }
+    }
+} */
+
+export const coords_5_a_side = {
+    diamond: {
+        1: {
+            x: 14,
+            y: 3
+        },
+        2: {
+            x: 12,
+            y: 3
+        },
+        3: {
+            x: 10,
+            y: 2
+        },
+        4: {
+            x: 6,
+            y: 4
         },
         5: {
             x: 3,
