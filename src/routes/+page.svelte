@@ -1,10 +1,9 @@
 <script lang="ts">
 	import FormationDnd from '$lib/my_comps/FormationDnd.svelte';
+	import Statsbar from '$lib/my_comps/statsbar.svelte';
 </script>
 
-<div class="flex h-32 w-full items-center justify-center bg-gray-800 text-white">
-	<span>Stats bar</span>
-</div>
+<Statsbar />
 <div class="grow overflow-auto">
 	<FormationDnd />
 </div>
