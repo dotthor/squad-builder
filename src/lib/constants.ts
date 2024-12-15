@@ -189,3 +189,18 @@ export const coords_5_a_side = {
         }
     }
 }
+
+export type Teams = {
+    team_a: Team | undefined,
+    team_b: Team | undefined
+}
+
+export type Team = {
+    name: string;
+    players: Player[];
+    stats: {
+        att: number;
+        def: number;
+        tec: number;
+    };
+}

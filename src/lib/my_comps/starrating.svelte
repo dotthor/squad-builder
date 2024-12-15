@@ -15,10 +15,10 @@
 	</div>
 	<div class="absolute top-0 flex gap-1">
 		{#each { length: stars }}
-			<Star fill="yellow" strokeWidth={0} />
+			<Star fill="#fde047" strokeWidth={0} />
 		{/each}
 		{#if rating % 1 > 0}
-			<HalfStar fill="yellow" strokeWidth={0} />
+			<HalfStar fill="#fde047" strokeWidth={0} />
 		{/if}
 	</div>
 </div>

@@ -4,10 +4,10 @@
 	import PlayercardDnd from './PlayercardDnd.svelte';
 	import Pitch from './pitch.svelte';
 	import Plus from 'lucide-svelte/icons/plus';
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import PlayerDialog from './playerDialog.svelte';
 	import { coords_5_a_side, type Coordinate, type Player } from '$lib/constants';
-	// coord 1-5 / 1-15
+	import { teamsState } from '$lib/states.svelte';
+
 	const slots = [
 		{
 			position: 1,
@@ -45,7 +45,7 @@
 			}
 		}
 	];
-	let players = $state<Player[]>([
+	/* let players = $state<Player[]>([
 		{
 			name: 'Benny',
 			position: 1,
@@ -73,8 +73,10 @@
 				tec: 5
 			}
 		}
-	]);
+	]); */
 
+	let team_a = teamsState.value.team_a;
+	let team_b = teamsState.value.team_b;
 	let open = $state(false);
 	let editingPlayer = $state<Player | undefined>(undefined);
 	$effect(() => {
@@ -113,7 +115,9 @@
 <Pitch orientation={'horizontal'}>
 	{#each slots as pSlot}
 		<PlayerslotDnd {pSlot}>
-			{@const player = players.find((p) => p.position === pSlot.position)}
+			{@const player = team_a
+				? team_a.players.find((p) => p.position === pSlot.position)
+				: undefined}
 			{#if player}
 				<button
 					class="contents"
@@ -140,9 +144,3 @@
 	{/each}
 </Pitch>
 <PlayerDialog bind:open player={editingPlayer} />
-
-<!-- <button
-	onclick={() => {
-		console.log($state.snapshot(players));
-	}}>DEBUG</button
-> -->

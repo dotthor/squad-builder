@@ -1,27 +1,7 @@
-import { squadDimension } from "./constants"
+import { squadDimension, type Teams } from "./constants"
 
-type Player = {
-    id: number,
-    name: string,
-    attValue: string,
-    defValue: string,
-    tecValue: string,
-    keeper: boolean
-}
-type PlayerV2 = {
-    id: number,
-    name: string,
-    stats: {
-        att: number[],
-        def: number[],
-        tec: number[]
-    },
-    isKeeper: boolean
-}
-type teams = {
-    team_a: PlayerV2[],
-    team_b: PlayerV2[]
-}
+
+
 
 export function createPlayersState() {
     let playersState: Player[] = $state([]);
@@ -273,9 +253,28 @@ export function createTeams() {
 }
 
 
-export const players = createPlayersState();
-export const playersV2 = createPlayersStateV2();
-export const teams = createTeams();
+/* export const players = createPlayersState(); */
+/* export const playersV2 = createPlayersStateV2(); */
+/* export const teams = createTeams(); */
 
 
+function createTeamsState() {
+    let teamsState: Teams = $state({ team_a: undefined, team_b: undefined });
 
+    const storedTeams = localStorage.getItem(`teams`);
+    if (storedTeams) teamsState = JSON.parse(storedTeams);
+
+    function updateTeams(teams: Teams) {
+        teamsState = teams;
+        localStorage.setItem(`teams`, JSON.stringify(teams));
+    }
+
+    return {
+        get value() {
+            return teamsState;
+        },
+        updateTeams
+    };
+}
+
+export const teamsState = createTeamsState();
