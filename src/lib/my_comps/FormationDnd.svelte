@@ -8,43 +8,90 @@
 	import { coords_5_a_side, type Coordinate, type Player } from '$lib/constants';
 	import { teamsState } from '$lib/states.svelte';
 
-	const slots = [
-		{
-			position: 1,
-			location: {
-				x: coords_5_a_side['diamond'][1].x,
-				y: coords_5_a_side['diamond'][1].y
+	let dialogData: {
+		slotPosition: number;
+		slotTeam: 'team_a' | 'team_b';
+	} = $state({
+		slotPosition: 1,
+		slotTeam: 'team_a'
+	});
+
+	const slots = {
+		team_a: [
+			{
+				position: 1,
+				location: {
+					x: coords_5_a_side['diamond']['team_a'][1].x,
+					y: coords_5_a_side['diamond']['team_a'][1].y
+				}
+			},
+			{
+				position: 2,
+				location: {
+					x: coords_5_a_side['diamond']['team_a'][2].x,
+					y: coords_5_a_side['diamond']['team_a'][2].y
+				}
+			},
+			{
+				position: 3,
+				location: {
+					x: coords_5_a_side['diamond']['team_a'][3].x,
+					y: coords_5_a_side['diamond']['team_a'][3].y
+				}
+			},
+			{
+				position: 4,
+				location: {
+					x: coords_5_a_side['diamond']['team_a'][4].x,
+					y: coords_5_a_side['diamond']['team_a'][4].y
+				}
+			},
+			{
+				position: 5,
+				location: {
+					x: coords_5_a_side['diamond']['team_a'][5].x,
+					y: coords_5_a_side['diamond']['team_a'][5].y
+				}
 			}
-		},
-		{
-			position: 2,
-			location: {
-				x: coords_5_a_side['diamond'][2].x,
-				y: coords_5_a_side['diamond'][2].y
+		],
+		team_b: [
+			{
+				position: 1,
+				location: {
+					x: coords_5_a_side['diamond']['team_b'][1].x,
+					y: coords_5_a_side['diamond']['team_b'][1].y
+				}
+			},
+			{
+				position: 2,
+				location: {
+					x: coords_5_a_side['diamond']['team_b'][2].x,
+					y: coords_5_a_side['diamond']['team_b'][2].y
+				}
+			},
+			{
+				position: 3,
+				location: {
+					x: coords_5_a_side['diamond']['team_b'][3].x,
+					y: coords_5_a_side['diamond']['team_b'][3].y
+				}
+			},
+			{
+				position: 4,
+				location: {
+					x: coords_5_a_side['diamond']['team_b'][4].x,
+					y: coords_5_a_side['diamond']['team_b'][4].y
+				}
+			},
+			{
+				position: 5,
+				location: {
+					x: coords_5_a_side['diamond']['team_b'][5].x,
+					y: coords_5_a_side['diamond']['team_b'][5].y
+				}
 			}
-		},
-		{
-			position: 3,
-			location: {
-				x: coords_5_a_side['diamond'][3].x,
-				y: coords_5_a_side['diamond'][3].y
-			}
-		},
-		{
-			position: 4,
-			location: {
-				x: coords_5_a_side['diamond'][4].x,
-				y: coords_5_a_side['diamond'][4].y
-			}
-		},
-		{
-			position: 5,
-			location: {
-				x: coords_5_a_side['diamond'][5].x,
-				y: coords_5_a_side['diamond'][5].y
-			}
-		}
-	];
+		]
+	};
 	/* let players = $state<Player[]>([
 		{
 			name: 'Benny',
@@ -113,10 +160,39 @@
 </script>
 
 <Pitch orientation={'horizontal'}>
-	{#each slots as pSlot}
-		<PlayerslotDnd {pSlot}>
+	{#each slots.team_a as slotA}
+		<PlayerslotDnd pSlot={slotA}>
 			{@const player = team_a
-				? team_a.players.find((p) => p.position === pSlot.position)
+				? team_a.players.find((p) => p.position === slotA.position)
+				: undefined}
+			{#if player}
+				<button
+					class="contents"
+					onclick={() => {
+						editingPlayer = player;
+						open = true;
+						console.log('edit player');
+					}}
+				>
+					<PlayercardDnd {player} />
+				</button>
+			{:else}
+				<button
+					onclick={() => {
+						editingPlayer = undefined;
+						open = true;
+						console.log('new player');
+					}}
+				>
+					<Plus color="white" size="36" />
+				</button>
+			{/if}
+		</PlayerslotDnd>
+	{/each}
+	{#each slots.team_b as slotB}
+		<PlayerslotDnd pSlot={slotB}>
+			{@const player = team_b
+				? team_b.players.find((p) => p.position === slotB.position)
 				: undefined}
 			{#if player}
 				<button
@@ -143,4 +219,4 @@
 		</PlayerslotDnd>
 	{/each}
 </Pitch>
-<PlayerDialog bind:open player={editingPlayer} />
+<PlayerDialog bind:open slotPosition={dialogData.slotPosition} slotTeam={dialogData.slotTeam} />

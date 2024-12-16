@@ -5,8 +5,31 @@
 	import { useDebounce } from 'runed';
 	import StatsSlider from './StatsSlider.svelte';
 	import { getRandomFootballer } from '$lib/my_utils';
+	import { teamsState } from '$lib/states.svelte';
+	import MySlider from './MySlider.svelte';
 
-	let { open = $bindable(), player }: { open: boolean; player?: Player } = $props();
+	let {
+		open = $bindable(),
+		slotPosition,
+		slotTeam
+	}: { open: boolean; slotPosition: number; slotTeam: 'team_a' | 'team_b' } = $props();
+
+	const player = $state(
+		teamsState.value[slotTeam] ? teamsState.value[slotTeam]['players'][slotPosition] : null
+	);
+
+	if (!player) {
+		teamsState.addPlayer({
+			team: slotTeam,
+			position: slotPosition,
+			name: '',
+			stats: {
+				att: 1,
+				def: 1,
+				tec: 1
+			}
+		});
+	}
 
 	function _updatePlayerStat(stat: string, value: number) {
 		console.log($state.snapshot(stat));
@@ -33,6 +56,10 @@
 		},
 		() => 500
 	);
+
+	function temp() {
+		console.log('temp');
+	}
 </script>
 
 <Dialog.Root bind:open>
@@ -40,8 +67,9 @@
 		<div class="flex w-full flex-col items-center gap-4 py-4 pb-10">
 			<div class="flex gap-4">
 				<div class="flex flex-col items-center gap-1">
-					<StatsSlider stat={'att'} callback={updatePlayerStat} value={[player?.stats.att ?? 1]}
-					></StatsSlider>
+					<MySlider bind:value={player.stats.att} updatePlayer={temp} />
+					<!-- <StatsSlider stat={'att'} callback={updatePlayerStat} value={[player?.stats.att ?? 1]}
+					></StatsSlider> -->
 				</div>
 				<div class="flex flex-col items-center gap-1">
 					<StatsSlider stat={'def'} callback={updatePlayerStat} value={[player?.stats.def ?? 1]}

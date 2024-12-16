@@ -1,4 +1,4 @@
-import { squadDimension, type Teams } from "./constants"
+import { squadDimension, type Player, type Teams } from "./constants"
 
 
 
@@ -264,6 +264,14 @@ function createTeamsState() {
     const storedTeams = localStorage.getItem(`teams`);
     if (storedTeams) teamsState = JSON.parse(storedTeams);
 
+    function addPlayer(player: Player) {
+
+        teamsState[player.team]?.players.push(player);
+
+    }
+
+
+
     function updateTeams(teams: Teams) {
         teamsState = teams;
         localStorage.setItem(`teams`, JSON.stringify(teams));
@@ -273,6 +281,7 @@ function createTeamsState() {
         get value() {
             return teamsState;
         },
+        addPlayer,
         updateTeams
     };
 }
