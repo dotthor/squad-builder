@@ -258,32 +258,31 @@ export function createTeams() {
 /* export const teams = createTeams(); */
 
 
-function createTeamsState() {
-    let teamsState: Teams = $state({ team_a: undefined, team_b: undefined });
+function createPlayerState() {
+    let playersState: { activePlayers: Player[], benchPlayers: Player[] } = $state({ activePlayers: [], benchPlayers: [] });
 
-    const storedTeams = localStorage.getItem(`teams`);
-    if (storedTeams) teamsState = JSON.parse(storedTeams);
+    const ls_activePlayers = localStorage.getItem(`activePlayers`);
+    const ls_benchPlayers = localStorage.getItem(`benchPlayers`);
 
-    function addPlayer(player: Player) {
+    if (ls_activePlayers) playersState.activePlayers = JSON.parse(ls_activePlayers);
+    if (ls_benchPlayers) playersState.benchPlayers = JSON.parse(ls_benchPlayers);
 
-        teamsState[player.team]?.players.push(player);
-
-    }
-
-
-
-    function updateTeams(teams: Teams) {
-        teamsState = teams;
-        localStorage.setItem(`teams`, JSON.stringify(teams));
+    function updatePlayer(player: Player) {
+        const index = playersState.activePlayers.findIndex(p => p.position === player.position);
+        if (index !== -1) {
+            playersState.activePlayers[index] = player;
+        } else {
+            playersState.activePlayers.push(player);
+        }
+        localStorage.setItem(`activePlayers`, JSON.stringify(playersState.activePlayers));
     }
 
     return {
         get value() {
-            return teamsState;
+            return playersState;
         },
-        addPlayer,
-        updateTeams
+        updatePlayer
     };
 }
 
-export const teamsState = createTeamsState();
+export const playerState = createPlayerState();

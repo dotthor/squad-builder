@@ -5,7 +5,6 @@
 	import { useDebounce } from 'runed';
 	import StatsSlider from './StatsSlider.svelte';
 	import { getRandomFootballer } from '$lib/my_utils';
-	import { teamsState } from '$lib/states.svelte';
 	import MySlider from './MySlider.svelte';
 
 	let {

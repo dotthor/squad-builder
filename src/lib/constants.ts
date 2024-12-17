@@ -139,9 +139,9 @@ export type Player = {
     team: "team_a" | "team_b";
     position: number;
     stats: {
-        att: number;
-        def: number;
-        tec: number;
+        att: number[];
+        def: number[];
+        tec: number[];
     };
 };
 
@@ -171,53 +171,20 @@ export type Player = {
 } */
 
 export const coords_5_a_side = {
-    diamond: {
-        team_a: {
-            1: {
-                x: 1,
-                y: 3
-            },
-            2: {
-                x: 3,
-                y: 3
-            },
-            3: {
-                x: 4,
-                y: 2
-            },
-            4: {
-                x: 4,
-                y: 4
-            },
-            5: {
-                x: 6,
-                y: 3
-            }
-        },
-        team_b: {
-            1: {
-                x: 14,
-                y: 3
-            },
-            2: {
-                x: 12,
-                y: 3
-            },
-            3: {
-                x: 11,
-                y: 4
-            },
-            4: {
-                x: 11,
-                y: 2
-            },
-            5: {
-                x: 9,
-                y: 3
-            }
-        }
-    }
-}
+    diamond: [
+        {/* placeholder */ },
+        { x: 1, y: 3 },
+        { x: 3, y: 3 },
+        { x: 4, y: 2 },
+        { x: 4, y: 4 },
+        { x: 6, y: 3 },
+        { x: 9, y: 3 },
+        { x: 11, y: 2 },
+        { x: 11, y: 4 },
+        { x: 12, y: 3 },
+        { x: 14, y: 3 }
+    ]
+};
 
 export type Teams = {
     team_a: Team | undefined,

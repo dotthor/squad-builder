@@ -6,7 +6,8 @@
 	import Plus from 'lucide-svelte/icons/plus';
 	import PlayerDialog from './playerDialog.svelte';
 	import { coords_5_a_side, type Coordinate, type Player } from '$lib/constants';
-	import { teamsState } from '$lib/states.svelte';
+	import { playerState } from '$lib/states.svelte';
+	import PlayerSheet from './playerSheet.svelte';
 
 	let dialogData: {
 		slotPosition: number;
@@ -16,115 +17,20 @@
 		slotTeam: 'team_a'
 	});
 
-	const slots = {
-		team_a: [
-			{
-				position: 1,
-				location: {
-					x: coords_5_a_side['diamond']['team_a'][1].x,
-					y: coords_5_a_side['diamond']['team_a'][1].y
-				}
-			},
-			{
-				position: 2,
-				location: {
-					x: coords_5_a_side['diamond']['team_a'][2].x,
-					y: coords_5_a_side['diamond']['team_a'][2].y
-				}
-			},
-			{
-				position: 3,
-				location: {
-					x: coords_5_a_side['diamond']['team_a'][3].x,
-					y: coords_5_a_side['diamond']['team_a'][3].y
-				}
-			},
-			{
-				position: 4,
-				location: {
-					x: coords_5_a_side['diamond']['team_a'][4].x,
-					y: coords_5_a_side['diamond']['team_a'][4].y
-				}
-			},
-			{
-				position: 5,
-				location: {
-					x: coords_5_a_side['diamond']['team_a'][5].x,
-					y: coords_5_a_side['diamond']['team_a'][5].y
-				}
+	let slots = [];
+	for (let i = 1; i <= 10; i++) {
+		slots.push({
+			position: i,
+			team: i <= 5 ? 'team_a' : 'team_b',
+			location: {
+				x: coords_5_a_side['diamond'][i].x,
+				y: coords_5_a_side['diamond'][i].y
 			}
-		],
-		team_b: [
-			{
-				position: 1,
-				location: {
-					x: coords_5_a_side['diamond']['team_b'][1].x,
-					y: coords_5_a_side['diamond']['team_b'][1].y
-				}
-			},
-			{
-				position: 2,
-				location: {
-					x: coords_5_a_side['diamond']['team_b'][2].x,
-					y: coords_5_a_side['diamond']['team_b'][2].y
-				}
-			},
-			{
-				position: 3,
-				location: {
-					x: coords_5_a_side['diamond']['team_b'][3].x,
-					y: coords_5_a_side['diamond']['team_b'][3].y
-				}
-			},
-			{
-				position: 4,
-				location: {
-					x: coords_5_a_side['diamond']['team_b'][4].x,
-					y: coords_5_a_side['diamond']['team_b'][4].y
-				}
-			},
-			{
-				position: 5,
-				location: {
-					x: coords_5_a_side['diamond']['team_b'][5].x,
-					y: coords_5_a_side['diamond']['team_b'][5].y
-				}
-			}
-		]
-	};
-	/* let players = $state<Player[]>([
-		{
-			name: 'Benny',
-			position: 1,
-			stats: {
-				att: 5,
-				def: 5,
-				tec: 5
-			}
-		},
-		{
-			name: 'Mattia',
-			position: 2,
-			stats: {
-				att: 5,
-				def: 5,
-				tec: 5
-			}
-		},
-		{
-			name: 'Giacomo',
-			position: 5,
-			stats: {
-				att: 5,
-				def: 5,
-				tec: 5
-			}
-		}
-	]); */
+		});
+	}
 
-	let team_a = teamsState.value.team_a;
-	let team_b = teamsState.value.team_b;
 	let open = $state(false);
+	let editingPosition = $state(0);
 	let editingPlayer = $state<Player | undefined>(undefined);
 	$effect(() => {
 		return monitorForElements({
@@ -160,10 +66,10 @@
 </script>
 
 <Pitch orientation={'horizontal'}>
-	{#each slots.team_a as slotA}
-		<PlayerslotDnd pSlot={slotA}>
-			{@const player = team_a
-				? team_a.players.find((p) => p.position === slotA.position)
+	{#each slots as pSlot}
+		<PlayerslotDnd {pSlot}>
+			{@const player = playerState.value.activePlayers
+				? playerState.value.activePlayers.find((p) => p.position === pSlot.position)
 				: undefined}
 			{#if player}
 				<button
@@ -179,7 +85,17 @@
 			{:else}
 				<button
 					onclick={() => {
-						editingPlayer = undefined;
+						playerState.updatePlayer({
+							team: pSlot.team,
+							position: pSlot.position,
+							name: '',
+							stats: {
+								att: [1],
+								def: [1],
+								tec: [1]
+							}
+						});
+						editingPosition = pSlot.position;
 						open = true;
 						console.log('new player');
 					}}
@@ -189,7 +105,7 @@
 			{/if}
 		</PlayerslotDnd>
 	{/each}
-	{#each slots.team_b as slotB}
+	<!-- {#each slots.team_b as slotB}
 		<PlayerslotDnd pSlot={slotB}>
 			{@const player = team_b
 				? team_b.players.find((p) => p.position === slotB.position)
@@ -217,6 +133,12 @@
 				</button>
 			{/if}
 		</PlayerslotDnd>
-	{/each}
+	{/each} -->
 </Pitch>
-<PlayerDialog bind:open slotPosition={dialogData.slotPosition} slotTeam={dialogData.slotTeam} />
+{#if open}
+	<PlayerSheet
+		bind:open
+		player={playerState.value.activePlayers.find((p) => p.position == editingPosition)}
+	/>
+{/if}
+<!-- <PlayerDialog bind:open slotPosition={dialogData.slotPosition} slotTeam={dialogData.slotTeam} /> -->
