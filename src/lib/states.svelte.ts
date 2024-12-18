@@ -277,11 +277,17 @@ function createPlayerState() {
         localStorage.setItem(`activePlayers`, JSON.stringify(playersState.activePlayers));
     }
 
+    function updateActiveplayers(newActivePlayers: Player[]) {
+        playersState.activePlayers = newActivePlayers;
+        localStorage.setItem(`activePlayers`, JSON.stringify(playersState.activePlayers));
+    }
+
     return {
         get value() {
             return playersState;
         },
-        updatePlayer
+        updatePlayer,
+        updateActiveplayers
     };
 }
 

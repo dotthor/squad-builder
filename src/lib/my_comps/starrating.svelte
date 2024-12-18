@@ -4,7 +4,7 @@
 
 	let { rating } = $props();
 
-	const stars = Math.floor(rating) <= 5 ? Math.floor(rating) : 5;
+	let stars = $derived(Math.floor(rating) <= 5 ? Math.floor(rating) : 5);
 </script>
 
 <div class="relative">
@@ -21,4 +21,5 @@
 			<HalfStar fill="#fde047" strokeWidth={0} />
 		{/if}
 	</div>
+	<!-- {stars}-{rating} -->
 </div>

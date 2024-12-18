@@ -5,7 +5,7 @@
 	import Futcardbig from './futcardbig.svelte';
 	import MySlider from './MySlider.svelte';
 	import { useDebounce } from 'runed';
-	import { playersV2, teams } from '$lib/states.svelte';
+	/* import { playersV2, teams } from '$lib/states.svelte'; */
 
 	let { stats, nome, id, team } = $props();
 

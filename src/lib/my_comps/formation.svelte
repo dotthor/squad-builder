@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { playersV2, teams } from '$lib/states.svelte';
+	/* import { playersV2, teams } from '$lib/states.svelte'; */
 	import { Swappable } from '@shopify/draggable';
 	import { onMount } from 'svelte';
 	import Futcardsmall from './futcardsmall.svelte';

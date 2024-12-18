@@ -1,4 +1,4 @@
-import { players } from '$lib/states.svelte';
+/* import { players } from '$lib/states.svelte'; */
 import type { PageLoad } from './$types';
 export const ssr = false;
 

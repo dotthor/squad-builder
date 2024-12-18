@@ -31,4 +31,11 @@
 	class={'size-full rounded-md bg-yellow-500 ' + (dragging ? ' opacity-30' : '')}
 >
 	{player.name}
+	{#if player.stats}
+		<div class="flex gap-1">
+			att:{player.stats.att}
+			def:{player.stats.def}
+			tec:{player.stats.tec}
+		</div>
+	{/if}
 </div>

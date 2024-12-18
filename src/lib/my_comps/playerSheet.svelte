@@ -4,17 +4,17 @@
 	import { getRandomFootballer } from '$lib/my_utils';
 	import { useDebounce } from 'runed';
 	import MySlider from './MySlider.svelte';
+	import { playerState } from '$lib/states.svelte';
 
 	let { open = $bindable(), player } = $props();
 
-	console.log($state.snapshot(player));
-
 	const updatePlayer = useDebounce(
-		(e: KeyboardEvent) => {
-			if (player.nome === '' && (!e || e.key !== 'Backspace')) {
-				player.nome = getRandomFootballer();
+		(e: KeyboardEvent | undefined) => {
+			if (player.name === '' && (!e || e.key !== 'Backspace')) {
+				player.name = getRandomFootballer();
 			}
-			console.log($state.snapshot(player));
+			//console.log($state.snapshot(player));
+			playerState.updatePlayer(player);
 		},
 		() => 500
 	);
@@ -37,7 +37,7 @@
 			<Input
 				onkeyup={updatePlayer}
 				placeholder="Nome"
-				bind:value={player.nome}
+				bind:value={player.name}
 				class="w-4/6 text-base"
 			/>
 		</div>

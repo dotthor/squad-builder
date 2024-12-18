@@ -34,12 +34,12 @@
 
 <div
 	bind:this={element}
-	class="relative col-span-2 flex size-full items-center justify-center"
+	class="relative col-span-2 row-span-1 flex size-full items-center justify-center border"
 	style={`grid-column-start: ${pSlot.location.x}; grid-row-start: ${pSlot.location.y};`}
 >
-	<span class="absolute left-0 top-0">{pSlot.position}</span>
+	<!-- <span class="absolute left-0 top-0">{pSlot.position}</span> -->
 	<span
-		class={'flex size-full h-[90%] w-[85%] items-center justify-center rounded-lg bg-slate-600 ' +
+		class={'flex size-full h-[150%] w-[85%] items-center justify-center rounded-lg bg-slate-600 ' +
 			(isDraggedOver ? 'animate-pulse' : '')}
 	>
 		{@render children?.()}

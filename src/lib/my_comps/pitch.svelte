@@ -53,7 +53,7 @@
 	</div>
 {:else}
 	<div
-		class="grid h-full w-[200vw] grid-cols-[repeat(15,_minmax(0,_1fr))] grid-rows-5 bg-green-300 p-0"
+		class="grid h-full w-[200vw] grid-cols-[repeat(16,_minmax(0,_1fr))] grid-rows-7 bg-green-300 p-0"
 	>
 		<div class="col-span-full col-start-1 row-start-1 flex size-full">
 			<span class="h-2 w-full bg-white sm:h-4"></span>
@@ -64,33 +64,33 @@
 		<div class="col-start-1 row-span-full row-start-1 flex size-full items-end">
 			<span class="h-full w-2 bg-white sm:w-4"></span>
 		</div>
-		<div class="col-start-[15] row-span-full row-start-1 flex size-full justify-end">
+		<div class="col-start-[16] row-span-full row-start-1 flex size-full justify-end">
 			<span class="h-full w-2 bg-white sm:w-4"></span>
 		</div>
-		<div class="col-span-2 col-start-1 row-start-2 flex size-full justify-start">
+		<div class="col-span-2 col-start-1 row-start-3 flex size-full justify-start">
 			<span class="h-2 w-full bg-white sm:h-4"></span>
 		</div>
-		<div class="col-span-2 col-start-1 row-start-4 flex size-full items-end">
+		<div class="col-span-2 col-start-1 row-start-5 flex size-full items-end">
 			<span class="h-2 w-full bg-white sm:h-4"></span>
 		</div>
-		<div class="col-start-3 row-span-3 row-start-2 flex size-full justify-start">
+		<div class="col-start-3 row-span-3 row-start-3 flex size-full justify-start">
 			<span class="h-full w-2 bg-white sm:w-4"></span>
 		</div>
-		<div class="col-start-8 row-span-full row-start-1 flex size-full justify-center">
+		<div class="col-span-2 col-start-8 row-span-full row-start-1 flex size-full justify-center">
 			<span class="h-full w-2 bg-white sm:w-4"></span>
 		</div>
 		<div
-			class="col-span-3 col-start-7 row-span-3 row-start-2 flex size-full items-center justify-center px-1"
+			class="col-span-4 col-start-7 row-span-3 row-start-3 flex size-full items-center justify-center px-1"
 		>
 			<span class="aspect-square w-full rounded-full border-8 border-white sm:border-[16px]"></span>
 		</div>
-		<div class="col-span-2 col-start-[14] row-start-2 flex size-full justify-start">
+		<div class="col-span-2 col-start-[15] row-start-3 flex size-full justify-start">
 			<span class="h-2 w-full bg-white sm:h-4"></span>
 		</div>
-		<div class="col-span-2 col-start-[14] row-start-4 flex size-full items-end">
+		<div class="col-span-2 col-start-[15] row-start-5 flex size-full items-end">
 			<span class="h-2 w-full bg-white sm:h-4"></span>
 		</div>
-		<div class="col-start-[13] row-span-3 row-start-2 flex size-full justify-end">
+		<div class="col-start-[14] row-span-3 row-start-3 flex size-full justify-end">
 			<span class="h-full w-2 bg-white sm:w-4"></span>
 		</div>
 		{@render children?.()}

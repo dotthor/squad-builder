@@ -31,7 +31,8 @@
 
 	let open = $state(false);
 	let editingPosition = $state(0);
-	let editingPlayer = $state<Player | undefined>(undefined);
+	let activePlayers = $state(playerState.value.activePlayers);
+
 	$effect(() => {
 		return monitorForElements({
 			onDrop({ source, location }) {
@@ -41,25 +42,32 @@
 					return;
 				}
 				const destinationLocation = destination.data.pSlot.position;
+				const destinationTeam = destination.data.pSlot.team;
+
 				const sourceLocation = source.data.player.position;
+				const sourceTeam = source.data.player.team;
 
 				if (sourceLocation === destinationLocation) {
 					return;
 				}
-				const player = players.find((p) => p.position === sourceLocation);
-				const swapPlayer = players.find((p) => p.position === destinationLocation);
-				const restOfPlayers = players.filter((p) => p !== player && p !== swapPlayer);
+				const player = activePlayers.find((p) => p.position === sourceLocation);
+				const swapPlayer = activePlayers.find((p) => p.position === destinationLocation);
+				const restOfPlayers = activePlayers.filter((p) => p !== player && p !== swapPlayer);
 
 				if (swapPlayer) {
-					console.log($state.snapshot(swapPlayer), destinationLocation);
-					players = [
-						{ ...player, position: destinationLocation },
-						{ ...swapPlayer, position: sourceLocation },
+					//console.log($state.snapshot(swapPlayer), destinationLocation);
+					activePlayers = [
+						{ ...player, position: destinationLocation, team: destinationTeam },
+						{ ...swapPlayer, position: sourceLocation, team: sourceTeam },
 						...restOfPlayers
 					];
 				} else {
-					players = [{ ...player, position: destinationLocation }, ...restOfPlayers];
+					activePlayers = [
+						{ ...player, position: destinationLocation, team: destinationTeam },
+						...restOfPlayers
+					];
 				}
+				playerState.updateActiveplayers(activePlayers);
 			}
 		});
 	});
@@ -68,16 +76,16 @@
 <Pitch orientation={'horizontal'}>
 	{#each slots as pSlot}
 		<PlayerslotDnd {pSlot}>
-			{@const player = playerState.value.activePlayers
-				? playerState.value.activePlayers.find((p) => p.position === pSlot.position)
+			{@const player = activePlayers
+				? activePlayers.find((p) => p.position === pSlot.position)
 				: undefined}
 			{#if player}
 				<button
 					class="contents"
 					onclick={() => {
-						editingPlayer = player;
+						editingPosition = pSlot.position;
 						open = true;
-						console.log('edit player');
+						//console.log('edit player');
 					}}
 				>
 					<PlayercardDnd {player} />
@@ -90,14 +98,14 @@
 							position: pSlot.position,
 							name: '',
 							stats: {
-								att: [1],
-								def: [1],
-								tec: [1]
+								att: [5],
+								def: [5],
+								tec: [5]
 							}
 						});
 						editingPosition = pSlot.position;
 						open = true;
-						console.log('new player');
+						//console.log('new player');
 					}}
 				>
 					<Plus color="white" size="36" />
@@ -136,6 +144,7 @@
 	{/each} -->
 </Pitch>
 {#if open}
+	<!-- TODO: si potrebbe passare solo la position e poi prendersi il player da dentro lo sheet -->
 	<PlayerSheet
 		bind:open
 		player={playerState.value.activePlayers.find((p) => p.position == editingPosition)}
