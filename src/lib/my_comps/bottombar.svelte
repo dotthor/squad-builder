@@ -27,7 +27,7 @@
 	});
 </script>
 
-<div class="flex h-16 w-full items-center justify-evenly bg-gray-800 text-white">
+<div class="flex h-16 min-h-16 w-full items-center justify-evenly bg-gray-800 text-white">
 	<DropdownMenu.Root>
 		<DropdownMenu.Trigger>
 			<button class="flex flex-col items-center gap-1">

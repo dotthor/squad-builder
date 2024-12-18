@@ -102,6 +102,12 @@ export const bestFootballers = [
     "Messi"
 ];
 
+export const footballersPics = [
+    'https://b.fssta.com/uploads/application/soccer/headshots/711.png',
+    'https://b.fssta.com/uploads/application/soccer/headshots/713.png',
+    'https://b.fssta.com/uploads/application/soccer/headshots/721.png'
+]
+
 export const _slots = [
     {
         id: 1,

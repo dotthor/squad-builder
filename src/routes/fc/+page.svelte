@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { teams } from '$lib/states.svelte';
+	//import { teams } from '$lib/states.svelte';
 	import Formation from '$lib/my_comps/formation.svelte';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { Swappable } from '@shopify/draggable';

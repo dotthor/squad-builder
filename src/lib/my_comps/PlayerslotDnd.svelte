@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Coordinate } from '$lib/constants';
 	import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 	import type { Snippet } from 'svelte';
 
@@ -39,7 +38,7 @@
 >
 	<!-- <span class="absolute left-0 top-0">{pSlot.position}</span> -->
 	<span
-		class={'flex size-full h-[150%] w-[85%] items-center justify-center rounded-lg bg-slate-600 ' +
+		class={"flex size-full h-[150%] w-[85%] items-center justify-center bg-[url('/imgs/bg_card_slot.png')] bg-contain bg-center bg-no-repeat" +
 			(isDraggedOver ? 'animate-pulse' : '')}
 	>
 		{@render children?.()}

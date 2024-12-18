@@ -47,7 +47,7 @@
 	}
 </script>
 
-<div class="flex h-32 w-full items-center justify-center gap-2 bg-gray-800 p-2 text-white">
+<div class="flex h-32 min-h-32 w-full items-center justify-center gap-2 bg-gray-800 p-2 text-white">
 	{@render teamCard(stats_A, rating_A, 'Team A')}
 	<Separator orientation="vertical" />
 	{@render teamCard(stats_B, rating_B, 'Team B')}

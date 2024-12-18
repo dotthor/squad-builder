@@ -1,8 +1,13 @@
-import { bestFootballers, type Player } from "./constants";
+import { bestFootballers, footballersPics, type Player } from "./constants";
 
 export function getRandomFootballer() {
     const randomIndex = Math.floor(Math.random() * bestFootballers.length);
     return bestFootballers[randomIndex];
+}
+
+export function getRandomFootballerPic() {
+    const randomIndex = Math.floor(Math.random() * footballersPics.length);
+    return footballersPics[randomIndex];
 }
 
 export function mapToRange(a: number, b: number, c: number) {

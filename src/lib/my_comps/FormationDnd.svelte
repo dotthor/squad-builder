@@ -84,25 +84,25 @@
 				const player = activePlayers.find((p) => p.position === sourceLocation);
 				const swapPlayer = activePlayers.find((p) => p.position === destinationLocation);
 				const restOfPlayers = activePlayers.filter((p) => p !== player && p !== swapPlayer);
-				let activePlayers: Player[];
+				let newActivePlayers: Player[];
 				if (swapPlayer) {
 					//console.log($state.snapshot(swapPlayer), destinationLocation);
-					activePlayers = [
+					newActivePlayers = [
 						{ ...player, position: destinationLocation, team: destinationTeam },
 						{ ...swapPlayer, position: sourceLocation, team: sourceTeam },
 						...restOfPlayers
 					];
 				} else {
-					activePlayers = [
+					newActivePlayers = [
 						{ ...player, position: destinationLocation, team: destinationTeam },
 						...restOfPlayers
 					];
 				}
-				playerState.updateActiveplayers(activePlayers);
+				playerState.updateActiveplayers(newActivePlayers);
 			},
 			onDragStart({ source }) {
 				dragging = true;
-				console.log('drag start', source.data.player);
+				//console.log('drag start', source.data.player);
 			}
 		});
 	});

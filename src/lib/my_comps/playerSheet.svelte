@@ -25,13 +25,15 @@
 		<div class="flex w-full flex-col items-center gap-4 py-10">
 			<div data-vaul-no-drag class="flex gap-4">
 				<div class="flex flex-col items-center gap-1">
-					<MySlider color="red" {updatePlayer} bind:value={player.stats.att}></MySlider>
+					<MySlider label="ATT" color="red" {updatePlayer} bind:value={player.stats.att}></MySlider>
 				</div>
 				<div class="flex flex-col items-center gap-1">
-					<MySlider color="green" {updatePlayer} bind:value={player.stats.def}></MySlider>
+					<MySlider label="DEF" color="green" {updatePlayer} bind:value={player.stats.def}
+					></MySlider>
 				</div>
 				<div class="flex flex-col items-center gap-1">
-					<MySlider color="blue" {updatePlayer} bind:value={player.stats.tec}></MySlider>
+					<MySlider label="TEC" color="blue" {updatePlayer} bind:value={player.stats.tec}
+					></MySlider>
 				</div>
 			</div>
 			<Input
