@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Coordinate } from '$lib/constants';
+	import { playerState } from '$lib/states.svelte';
 	import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+	import Trash from 'lucide-svelte/icons/trash-2';
 	import type { Snippet } from 'svelte';
-
-	let { pSlot, children }: { pSlot: any; children?: Snippet<[]> } = $props();
 
 	let element: HTMLDivElement;
 
@@ -13,7 +13,7 @@
 		return dropTargetForElements({
 			element,
 			getData: () => ({
-				pSlot
+				/* pSlot */
 			}),
 			onDragEnter: ({ source }) => {
 				//se si vuole controllare se il player ha i requisiti per essere inserito in quella posizione
@@ -22,8 +22,9 @@
 			onDragLeave: () => {
 				isDraggedOver = false;
 			},
-			onDrop: () => {
+			onDrop: ({ source }) => {
 				isDraggedOver = false;
+				playerState.deletePlayer(source.data.player);
 			},
 			canDrop: ({ source }) => {
 				return true;
@@ -34,14 +35,8 @@
 
 <div
 	bind:this={element}
-	class="relative col-span-2 row-span-1 flex size-full items-center justify-center"
-	style={`grid-column-start: ${pSlot.location.x}; grid-row-start: ${pSlot.location.y};`}
+	class={'absolute bottom-20 left-5 flex size-20 items-center justify-center ' +
+		(isDraggedOver ? 'scale-150 animate-pulse' : '')}
 >
-	<!-- <span class="absolute left-0 top-0">{pSlot.position}</span> -->
-	<span
-		class={'flex size-full h-[150%] w-[85%] items-center justify-center rounded-lg bg-slate-600 ' +
-			(isDraggedOver ? 'animate-pulse' : '')}
-	>
-		{@render children?.()}
-	</span>
+	<Trash size="70" color="red" />
 </div>

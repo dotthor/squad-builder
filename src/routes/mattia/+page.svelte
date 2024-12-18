@@ -46,7 +46,8 @@
 			{/each}
 		</div>
 	</div>
-	<button class=" mb-6 mt-auto w-11/12 rounded-2xl bg-blue-900 p-4 text-lg font-bold text-white"
+	<button
+		class=" mb-6 mt-auto w-11/12 rounded-2xl bg-blue-900 bg-green-900 p-4 text-lg font-bold text-white"
 		>GENERA SQUADRA</button
 	>
 </div>

@@ -42,7 +42,7 @@
 	function getRating(stats: Stats) {
 		const totalPoints = stats.att + stats.def + stats.tec;
 		const maxPoints = 150;
-		const rating = (totalPoints / maxPoints) * 5;
+		const rating = (totalPoints / maxPoints) * playerState.value.squadDimension;
 		return Math.round(rating * 10) / 10;
 	}
 </script>

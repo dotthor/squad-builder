@@ -259,13 +259,20 @@ export function createTeams() {
 
 
 function createPlayerState() {
-    let playersState: { activePlayers: Player[], benchPlayers: Player[] } = $state({ activePlayers: [], benchPlayers: [] });
+    let playersState: { activePlayers: Player[], benchPlayers: Player[], squadDimension: number } = $state({ activePlayers: [], benchPlayers: [], squadDimension: 5 });
 
     const ls_activePlayers = localStorage.getItem(`activePlayers`);
     const ls_benchPlayers = localStorage.getItem(`benchPlayers`);
+    const ls_squadDimension = localStorage.getItem(`squadDimension`);
 
     if (ls_activePlayers) playersState.activePlayers = JSON.parse(ls_activePlayers);
     if (ls_benchPlayers) playersState.benchPlayers = JSON.parse(ls_benchPlayers);
+    if (ls_squadDimension) playersState.squadDimension = JSON.parse(ls_squadDimension);
+    else {
+        playersState.squadDimension = 5;
+        localStorage.setItem(`squadDimension`, JSON.stringify(playersState.squadDimension
+        ))
+    };
 
     function updatePlayer(player: Player) {
         const index = playersState.activePlayers.findIndex(p => p.position === player.position);
@@ -282,12 +289,28 @@ function createPlayerState() {
         localStorage.setItem(`activePlayers`, JSON.stringify(playersState.activePlayers));
     }
 
+    function updateSquadDimension(newSquadDimension: number) {
+        playersState.squadDimension = newSquadDimension;
+        localStorage.setItem(`squadDimension`, JSON.stringify(playersState.squadDimension));
+    }
+    function deletePlayer(player: Player) {
+        playersState.activePlayers = playersState.activePlayers.filter(p => p.position !== player.position);
+        localStorage.setItem(`activePlayers`, JSON.stringify(playersState.activePlayers));
+    }
+    function resetActivePlayers() {
+        playersState.activePlayers = [];
+        localStorage.setItem(`activePlayers`, JSON.stringify(playersState.activePlayers));
+    }
+
     return {
         get value() {
             return playersState;
         },
         updatePlayer,
-        updateActiveplayers
+        updateActiveplayers,
+        updateSquadDimension,
+        deletePlayer,
+        resetActivePlayers
     };
 }
 

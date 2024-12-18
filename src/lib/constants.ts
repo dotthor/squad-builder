@@ -134,6 +134,15 @@ export type Coordinate = {
     position_number: number
 } */
 
+export type pSlot = {
+    position: number,
+    team: 'team_a' | 'team_b',
+    location: {
+        x: number,
+        y: number
+    }
+}
+
 export type Player = {
     name: string;
     team: "team_a" | "team_b";
@@ -172,7 +181,8 @@ export type Player = {
 
 export const coords_5_a_side = {
     diamond: [
-        {/* placeholder */ },
+        /* placeholder */
+        { x: 0, y: 0 },
         /* team_a */
         { x: 1, y: 4 },
         { x: 3, y: 4 },
@@ -184,6 +194,27 @@ export const coords_5_a_side = {
         { x: 11, y: 2 },
         { x: 11, y: 6 },
         { x: 13, y: 4 },
+        { x: 15, y: 4 }
+    ]
+};
+
+export const coords_6_a_side = {
+    diamond: [
+        /* placeholder */
+        { x: 0, y: 0 },
+        /* team_a */
+        { x: 1, y: 4 },
+        { x: 3, y: 3 },
+        { x: 3, y: 5 },
+        { x: 5, y: 6 },
+        { x: 5, y: 2 },
+        { x: 7, y: 4 },
+        /* team_b */
+        { x: 9, y: 4 },
+        { x: 11, y: 2 },
+        { x: 11, y: 6 },
+        { x: 13, y: 5 },
+        { x: 13, y: 3 },
         { x: 15, y: 4 }
     ]
 };

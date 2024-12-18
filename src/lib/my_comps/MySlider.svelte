@@ -7,6 +7,7 @@
 		value = $bindable(),
 		ref = $bindable(null),
 		updatePlayer,
+		color = 'red',
 		...restProps
 	} /* : Props */ = $props();
 </script>
@@ -51,8 +52,15 @@
 		class="relative flex h-full touch-none select-none justify-center"
 	>
 		{#snippet children({ thumbs, ticks })}
-			<span class="relative h-full w-16 overflow-hidden rounded-xl border border-gray-300 bg-white">
-				<Slider.Range class="absolute w-full rounded-xl bg-gradient-to-t from-[#203877] to-black" />
+			<span
+				class={'relative h-full w-16 overflow-hidden rounded-xl border border-gray-300 ' +
+					`bg-${color}-900`}
+			>
+				<Slider.Range
+					class={'absolute flex w-full justify-center rounded-xl pt-2 ' + `bg-${color}-500`}
+				>
+					<span class="text-3xl font-bold text-white">{value}</span>
+				</Slider.Range>
 			</span>
 			{#each thumbs as index}
 				<Slider.Thumb {index} />
