@@ -4,7 +4,7 @@
 	let { children } = $props();
 </script>
 
-<div class="flex h-dvh w-full flex-col">
+<div class="flex h-dvh w-full flex-col" data-vaul-drawer-wrapper>
 	{@render children()}
 	<Bottombar />
 </div>

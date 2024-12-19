@@ -20,7 +20,7 @@
 	);
 </script>
 
-<Drawer.Root bind:open>
+<Drawer.Root shouldScaleBackground bind:open>
 	<Drawer.Content>
 		<div class="flex w-full flex-col items-center gap-4 py-10">
 			<div data-vaul-no-drag class="flex gap-4">

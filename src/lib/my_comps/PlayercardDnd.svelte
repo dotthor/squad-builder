@@ -40,10 +40,11 @@
 
 <div
 	bind:this={element}
-	class={'flex size-full flex-col items-center justify-end bg-contain bg-center bg-no-repeat ' +
+	class={' relative flex size-full flex-col items-center justify-end bg-contain bg-center bg-no-repeat ' +
 		(dragging ? ' opacity-30' : '')}
 	style:background-image={"url('/imgs/bg_card_" + rarity + ".png')"}
 >
+	<!-- TODO: fixa immagine che rompe le palle al drag and drop -->
 	<img class="h-[60%]" {src} alt="player" />
 	<span class="h-[37%]">{player.name}</span>
 	<!-- {player.name}
